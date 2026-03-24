@@ -4,6 +4,7 @@ import com.arka.core.dto.CreateCheckInRequest;
 import com.arka.core.dto.response.CheckInResponse;
 import com.arka.core.mapper.CheckInMapper;
 import com.arka.core.model.CheckIn;
+import com.arka.core.model.User;
 import com.arka.core.repository.CheckInRepository;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,18 @@ import java.util.Optional;
 public class CheckInService {
 
     private final CheckInRepository checkInRepository;
+    private final DevUserService devUserService;
 
-    public CheckInService(CheckInRepository checkInRepository) {
+    public CheckInService(CheckInRepository checkInRepository, DevUserService devUserService) {
         this.checkInRepository = checkInRepository;
+        this.devUserService = devUserService;
     }
 
     public CheckInResponse createCheckIn(CreateCheckInRequest request) {
+        User user = devUserService.getOrCreateDevUser();
+
         CheckIn checkIn = new CheckIn();
+        checkIn.setUser(user);
         checkIn.setCraving(request.getCraving());
         checkIn.setMood(request.getMood());
         checkIn.setEnergy(request.getEnergy());

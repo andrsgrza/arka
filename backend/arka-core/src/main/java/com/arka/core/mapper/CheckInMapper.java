@@ -11,6 +11,7 @@ public class CheckInMapper {
     public static CheckInResponse toResponse(CheckIn checkIn) {
         return new CheckInResponse(
                 checkIn.getId(),
+                checkIn.getUser().getId(),
                 checkIn.getCraving(),
                 checkIn.getMood(),
                 checkIn.getEnergy(),
