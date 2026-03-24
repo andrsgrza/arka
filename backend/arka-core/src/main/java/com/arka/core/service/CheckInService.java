@@ -1,6 +1,8 @@
 package com.arka.core.service;
 
 import com.arka.core.dto.CreateCheckInRequest;
+import com.arka.core.dto.response.CheckInResponse;
+import com.arka.core.mapper.CheckInMapper;
 import com.arka.core.model.CheckIn;
 import com.arka.core.repository.CheckInRepository;
 import org.springframework.stereotype.Service;
@@ -17,7 +19,7 @@ public class CheckInService {
         this.checkInRepository = checkInRepository;
     }
 
-    public CheckIn createCheckIn(CreateCheckInRequest request) {
+    public CheckInResponse createCheckIn(CreateCheckInRequest request) {
         CheckIn checkIn = new CheckIn();
         checkIn.setCraving(request.getCraving());
         checkIn.setMood(request.getMood());
@@ -27,10 +29,13 @@ public class CheckInService {
         checkIn.setWantsToConsume(request.getWantsToConsume());
         checkIn.setCreatedAt(LocalDateTime.now());
 
-        return checkInRepository.save(checkIn);
+        CheckIn savedCheckIn = checkInRepository.save(checkIn);
+
+        return CheckInMapper.toResponse(savedCheckIn);
     }
 
-    public Optional<CheckIn> getLatestCheckIn() {
-        return checkInRepository.findTopByOrderByCreatedAtDesc();
+    public Optional<CheckInResponse> getLatestCheckIn() {
+        return checkInRepository.findTopByOrderByCreatedAtDesc()
+                .map(CheckInMapper::toResponse);
     }
 }
