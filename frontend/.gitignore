@@ -1,0 +1,24 @@
+# OS
+.DS_Store
+
+# Logs
+*.log
+
+# Env
+.env
+
+# Node
+node_modules/
+dist/
+
+# IDE
+.vscode/
+.idea/
+
+# Build
+build/
+out/
+target/
+
+# Mac
+*.swp
