@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import { createCheckIn } from "./checkInService";
+import { CreateCheckInRequest } from "../../types/checkIn";
 
-const initialForm = {
+const initialForm: CreateCheckInRequest = {
   craving: 5,
   mood: 5,
   energy: 5,
@@ -11,12 +12,12 @@ const initialForm = {
 };
 
 export default function CheckInForm() {
-  const [form, setForm] = useState(initialForm);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [form, setForm] = useState<CreateCheckInRequest>(initialForm);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  function handleChange(event) {
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value, type, checked } = event.target;
 
     setForm((prev) => ({
@@ -30,7 +31,7 @@ export default function CheckInForm() {
     }));
   }
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSubmitting(true);
     setSuccessMessage("");
@@ -50,12 +51,13 @@ export default function CheckInForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={styles.form}>
-      <h2>Daily Check-In</h2>
+    <form onSubmit={handleSubmit} className="form-card">
+      <h2 className="form-title">Daily Check-In</h2>
 
-      <label style={styles.label}>
-        Craving
+      <label className="input-group">
+        <span className="input-label">Craving</span>
         <input
+          className="number-input"
           type="number"
           name="craving"
           min="0"
@@ -65,9 +67,10 @@ export default function CheckInForm() {
         />
       </label>
 
-      <label style={styles.label}>
-        Mood
+      <label className="input-group">
+        <span className="input-label">Mood</span>
         <input
+          className="number-input"
           type="number"
           name="mood"
           min="0"
@@ -77,9 +80,10 @@ export default function CheckInForm() {
         />
       </label>
 
-      <label style={styles.label}>
-        Energy
+      <label className="input-group">
+        <span className="input-label">Energy</span>
         <input
+          className="number-input"
           type="number"
           name="energy"
           min="0"
@@ -89,9 +93,10 @@ export default function CheckInForm() {
         />
       </label>
 
-      <label style={styles.label}>
-        Sleep Quality
+      <label className="input-group">
+        <span className="input-label">Sleep Quality</span>
         <input
+          className="number-input"
           type="number"
           name="sleepQuality"
           min="0"
@@ -101,9 +106,10 @@ export default function CheckInForm() {
         />
       </label>
 
-      <label style={styles.label}>
-        Context
+      <label className="input-group">
+        <span className="input-label">Context</span>
         <input
+          className="text-input"
           type="text"
           name="context"
           value={form.context}
@@ -112,51 +118,27 @@ export default function CheckInForm() {
         />
       </label>
 
-      <label style={styles.checkboxLabel}>
+      <label className="checkbox-row">
         <input
           type="checkbox"
           name="wantsToConsume"
           checked={form.wantsToConsume}
           onChange={handleChange}
         />
-        Wants to consume
+        <span>Wants to consume</span>
       </label>
 
-      <button type="submit" disabled={isSubmitting}>
+      <button className="primary-button" type="submit" disabled={isSubmitting}>
         {isSubmitting ? "Saving..." : "Save Check-In"}
       </button>
 
-      {successMessage ? <p style={styles.success}>{successMessage}</p> : null}
-      {errorMessage ? <p style={styles.error}>{errorMessage}</p> : null}
+      {successMessage ? (
+        <p className="form-message text-success">{successMessage}</p>
+      ) : null}
+
+      {errorMessage ? (
+        <p className="form-message text-error">{errorMessage}</p>
+      ) : null}
     </form>
   );
 }
-
-const styles = {
-  form: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "12px",
-    maxWidth: "420px",
-    margin: "40px auto",
-    padding: "24px",
-    border: "1px solid #ddd",
-    borderRadius: "8px",
-  },
-  label: {
-    display: "flex",
-    flexDirection: "column",
-    gap: "4px",
-  },
-  checkboxLabel: {
-    display: "flex",
-    alignItems: "center",
-    gap: "8px",
-  },
-  success: {
-    color: "green",
-  },
-  error: {
-    color: "red",
-  },
-};
