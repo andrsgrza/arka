@@ -72,3 +72,71 @@
   margin: 0;
   font-size: 14px;
 }
+
+.info-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  max-width: var(--max-form-width);
+  margin: 0 auto var(--spacing-xl);
+  padding: var(--spacing-xl);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.info-card-title {
+  margin: 0;
+  font-size: 24px;
+  line-height: 1.2;
+}
+
+.risk-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--spacing-md);
+}
+
+.risk-label {
+  font-weight: 600;
+}
+
+.risk-value {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.risk-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.risk-badge-low {
+  background-color: #15803d;
+}
+
+.risk-badge-medium {
+  background-color: #d97706;
+}
+
+.risk-badge-high {
+  background-color: #dc2626;
+}
+
+.risk-factors {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.risk-factor-list {
+  margin: 0;
+  padding-left: 18px;
+}
