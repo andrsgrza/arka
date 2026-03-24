@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import { createCheckIn } from "./checkInService";
+import { CreateCheckInRequest } from "../../types/checkIn";
 
-const initialForm = {
+const initialForm: CreateCheckInRequest = {
   craving: 5,
   mood: 5,
   energy: 5,
@@ -11,12 +12,12 @@ const initialForm = {
 };
 
 export default function CheckInForm() {
-  const [form, setForm] = useState(initialForm);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [form, setForm] = useState<CreateCheckInRequest>(initialForm);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [successMessage, setSuccessMessage] = useState<string>("");
+  const [errorMessage, setErrorMessage] = useState<string>("");
 
-  function handleChange(event) {
+  function handleChange(event: ChangeEvent<HTMLInputElement>) {
     const { name, value, type, checked } = event.target;
 
     setForm((prev) => ({
@@ -30,7 +31,7 @@ export default function CheckInForm() {
     }));
   }
 
-  async function handleSubmit(event) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setIsSubmitting(true);
     setSuccessMessage("");
@@ -132,7 +133,7 @@ export default function CheckInForm() {
   );
 }
 
-const styles = {
+const styles: Record<string, React.CSSProperties> = {
   form: {
     display: "flex",
     flexDirection: "column",

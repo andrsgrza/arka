@@ -1,6 +1,9 @@
 const API_BASE_URL = "http://localhost:8080";
 
-export async function apiRequest(path, options = {}) {
+export async function apiRequest<T>(
+  path: string,
+  options: RequestInit = {},
+): Promise<T> {
   const response = await fetch(`${API_BASE_URL}${path}`, {
     headers: {
       "Content-Type": "application/json",
@@ -19,8 +22,8 @@ export async function apiRequest(path, options = {}) {
   const contentType = response.headers.get("content-type");
 
   if (contentType && contentType.includes("application/json")) {
-    return response.json();
+    return response.json() as Promise<T>;
   }
 
-  return response.text();
+  return response.text() as unknown as T;
 }
