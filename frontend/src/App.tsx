@@ -3,9 +3,11 @@ import CheckInForm from "./features/checkin/CheckInForm";
 
 export default function App() {
   return (
-    <div>
-      <h1 style={{ textAlign: "center" }}>ARKA</h1>
-      <CheckInForm />
-    </div>
+    <main className="app-shell">
+      <div className="page-container">
+        <h1 className="page-title">ARKA</h1>
+        <CheckInForm />
+      </div>
+    </main>
   );
 }

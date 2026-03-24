@@ -18,6 +18,10 @@ module.exports = {
         use: "ts-loader",
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
   plugins: [
@@ -28,5 +32,8 @@ module.exports = {
   devServer: {
     port: 3000,
     historyApiFallback: true,
+    static: {
+      directory: path.join(__dirname, "public"),
+    },
   },
 };
